@@ -1,0 +1,72 @@
+import axios from 'axios'
+import React from 'react'
+
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { Exercise } from '../../../utils/types'
+import ExerciseItem from '../../../components/ExerciseItem'
+import Container from '../../../components/Container'
+interface IProps{
+    exercises:Exercise[],
+    exerciseType:String[]
+}
+const ExercisePage = (props:IProps) => {
+    const router=useRouter()
+  return (
+    <Container exerciseType={props.exerciseType}>
+        {props.exercises?.map((exercise,index)=>(
+            <ExerciseItem key={exercise.id} {...exercise}/>
+        ))
+
+        }
+    </Container>
+  )
+}   
+
+export const getStaticPaths =async () =>{
+    const response2=await axios.get(`${process.env.URL}api/exercises/category/bodyPart`)
+    const response3=await axios.get(`${process.env.URL}api/exercises/category/target`)
+    const response4=await axios.get(`${process.env.URL}api/exercises/category/equipment`)
+    const array1=response2.data.map((item:String)=>{
+        return {
+            params:{
+                slug:['bodyPart',item]
+            }
+        }
+    })
+    const array2=response3.data.map((item:String)=>{
+        return {
+            params:{
+                slug:['target',item]
+            }
+        }
+    })
+
+    const array3=response4.data.map((item:String)=>{
+        return {
+            params:{
+                slug:['target',item]
+            }
+        }
+    })
+
+    const paths=[...array1,...array2,...array3]
+    return {
+        paths,
+        fallback:true
+    }
+}
+
+export const getStaticProps=async(context:any)=>{
+    const slug=context.params.slug;
+    const link=slug.join('/')
+    const res=await axios.get(`${process.env.URL}api/exercises/${link}`)
+    return{
+        props: {
+            exercises:res.data,
+            exerciseType:slug
+        }
+    }
+}
+
+export default ExercisePage
