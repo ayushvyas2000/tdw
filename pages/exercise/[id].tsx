@@ -36,7 +36,7 @@ export const getStaticPaths =async () =>{
             return {
                 params: {id:exercise.id.toString()}
             }
-        })
+        }) || []
         return {
             paths,
             fallback:true
