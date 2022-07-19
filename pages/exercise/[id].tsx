@@ -30,23 +30,34 @@ const ExercisePage = (props:Exercise) => {
 }   
 
 export const getStaticPaths =async () =>{
-    const res=await axios.get(`${process.env.URL}api/exercises`)
-    const paths=res.data.map((exercise:Exercise)=>{
+    try {
+        const res=await axios.get(`${process.env.URL}api/exercises`)
+        const paths=res.data.map((exercise:Exercise)=>{
+            return {
+                params: {id:exercise.id.toString()}
+            }
+        })
         return {
-            params: {id:exercise.id.toString()}
+            paths,
+            fallback:true
         }
-    })
-    return {
-        paths,
-        fallback:true
+        
+    } catch (error) {
+        console.log(error);
+        
     }
 }
 
 export const getStaticProps=async(context:any)=>{
     const id=context.params.id;
-    const res =await axios.get(`${process.env.URL}api/exercises/${id}`)
-    return{
-        props: res.data
+    try {
+        const res =await axios.get(`${process.env.URL}api/exercises/${id}`)
+        return{
+            props: res.data
+        }
+    } catch (error) {
+        console.log(error);
+        
     }
 }
 

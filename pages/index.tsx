@@ -30,15 +30,21 @@ const Home: NextPage<IProps> = (props) => {
 }
 
 export async function getStaticProps() {
-  const response2=await axios.get(`${process.env.URL}api/exercises/category/bodyPart`)
-  const response3=await axios.get(`${process.env.URL}api/exercises/category/target`)
-  const response4=await axios.get(`${process.env.URL}api/exercises/category/equipment`)
-  return {
-    props: {
-      bodyParts:response2.data,
-      targetMuscles:response3.data,
-      equipments:response4.data
-    }, // will be passed to the page component as props
+  try {
+    const response2=await axios.get(`${process.env.URL}api/exercises/category/bodyPart`)
+    const response3=await axios.get(`${process.env.URL}api/exercises/category/target`)
+    const response4=await axios.get(`${process.env.URL}api/exercises/category/equipment`)
+    return {
+      props: {
+        bodyParts:response2.data,
+        targetMuscles:response3.data,
+        equipments:response4.data
+      }, // will be passed to the page component as props
+    }
+    
+  } catch (error) {
+    console.log(error);
+    
   }
 }
 

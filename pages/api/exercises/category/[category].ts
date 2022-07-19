@@ -21,9 +21,14 @@ export default async function handler(
         'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
       }
     };
-    
-    const response=await axios.request(options)
-    const array=response.data.slice(0,100)
-    res.status(200).json(array)
+    try {
+      const response=await axios.request(options)
+      const array=response.data.slice(0,100)
+      res.status(200).json(array)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 }

@@ -24,48 +24,60 @@ const ExercisePage = (props:IProps) => {
 }   
 
 export const getStaticPaths =async () =>{
-    const response2=await axios.get(`${process.env.URL}api/exercises/category/bodyPart`)
-    const response3=await axios.get(`${process.env.URL}api/exercises/category/target`)
-    const response4=await axios.get(`${process.env.URL}api/exercises/category/equipment`)
-    const array1=response2.data.map((item:String)=>{
-        return {
-            params:{
-                slug:['bodyPart',item]
+    try {
+        const response2=await axios.get(`${process.env.URL}api/exercises/category/bodyPart`)
+        const response3=await axios.get(`${process.env.URL}api/exercises/category/target`)
+        const response4=await axios.get(`${process.env.URL}api/exercises/category/equipment`)
+        const array1=response2.data.map((item:String)=>{
+            return {
+                params:{
+                    slug:['bodyPart',item]
+                }
             }
-        }
-    })
-    const array2=response3.data.map((item:String)=>{
-        return {
-            params:{
-                slug:['target',item]
+        })
+        const array2=response3.data.map((item:String)=>{
+            return {
+                params:{
+                    slug:['target',item]
+                }
             }
-        }
-    })
-
-    const array3=response4.data.map((item:String)=>{
-        return {
-            params:{
-                slug:['target',item]
+        })
+    
+        const array3=response4.data.map((item:String)=>{
+            return {
+                params:{
+                    slug:['target',item]
+                }
             }
+        })
+    
+        const paths=[...array1,...array2,...array3]
+        return {
+            paths,
+            fallback:true
         }
-    })
-
-    const paths=[...array1,...array2,...array3]
-    return {
-        paths,
-        fallback:true
+        
+    } catch (error) {
+        console.log(error);
+        
     }
 }
 
 export const getStaticProps=async(context:any)=>{
     const slug=context.params.slug;
     const link=slug.join('/')
-    const res=await axios.get(`${process.env.URL}api/exercises/${link}`)
-    return{
-        props: {
-            exercises:res.data,
-            exerciseType:slug
+    try {
+        const res=await axios.get(`${process.env.URL}api/exercises/${link}`)
+    
+        return{
+            props: {
+                exercises:res.data,
+                exerciseType:slug
+            }
         }
+    } catch (error) {
+        console.log(error);
+        
     }
 }
 
