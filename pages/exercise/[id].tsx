@@ -18,7 +18,7 @@ const ExercisePage = (props:Exercise) => {
         <h3 className='font-semibold text-slate-500 text-2xl capitalize'>Body Part Involved: {props.bodyPart}</h3>
         <h3 className='font-semibold text-slate-500 text-2xl capitalize'>Target: {props.target}</h3>
         <h4 className='text-lg text-slate-500'>Equipment needed: {props.equipment}</h4>
-        <a target='_blank' href={`https://www.youtube.com/results?search_query=${newSearchString}`}>
+        <a rel="noopener noreferrer" target='_blank' href={`https://www.youtube.com/results?search_query=${newSearchString}`}>
         <div className='uppercase space-x-4 flex justify-center items-center bg-red-600 text-white px-5 py-2 text-lg'>
         <h3>Watch on youtube</h3>
         <BsYoutube className='text-4xl'/>
