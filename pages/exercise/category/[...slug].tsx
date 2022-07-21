@@ -25,7 +25,6 @@ const ExercisePage = (props:IProps) => {
 }   
 
 export const getStaticPaths =async () =>{
-    try {
         const response2=await axios.get(`${process.env.URL}bodyPartList`,config)
         const response3=await axios.get(`${process.env.URL}targetList`,config)
         const response4=await axios.get(`${process.env.URL}equipmentList`,config)
@@ -58,10 +57,6 @@ export const getStaticPaths =async () =>{
             fallback:false
         }
         
-    } catch (error) {
-        console.log(error);
-        
-    }
 }
 
 export const getStaticProps=async(context:any)=>{
