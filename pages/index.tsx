@@ -9,6 +9,7 @@ import {FiChevronLeft,FiChevronRight} from 'react-icons/fi'
 import Header from '../components/Header'
 import Categories from '../components/Categories'
 import Section from '../components/Section'
+import { config } from '../utils/config'
 interface IProps{
   bodyParts:String[],
   targetMuscles:String[],
@@ -31,9 +32,9 @@ const Home: NextPage<IProps> = (props) => {
 
 export async function getStaticProps() {
   try {
-    const response2=await axios.get(`${process.env.URL}api/exercises/category/bodyPart`)
-    const response3=await axios.get(`${process.env.URL}api/exercises/category/target`)
-    const response4=await axios.get(`${process.env.URL}api/exercises/category/equipment`)
+    const response2=await axios.get(`${process.env.URL}bodyPartList`,config)
+    const response3=await axios.get(`${process.env.URL}targetList`,config)
+    const response4=await axios.get(`${process.env.URL}equipmentList`,config)
     return {
       props: {
         bodyParts:response2.data,

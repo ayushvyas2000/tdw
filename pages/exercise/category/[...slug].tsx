@@ -46,7 +46,7 @@ export const getStaticPaths =async () =>{
         const array3=response4.data.map((item:String)=>{
             return {
                 params:{
-                    slug:['target',item]
+                    slug:['equipment',item]
                 }
             }
         })
@@ -67,7 +67,7 @@ export const getStaticProps=async(context:any)=>{
     const slug=context.params.slug;
     const link=slug.join('/')
     try {
-        const res=await axios.get(`${process.env.URL}api/exercises/${link}`)
+        const res=await axios.get(`${process.env.URL}${link}`)
     
         return{
             props: {

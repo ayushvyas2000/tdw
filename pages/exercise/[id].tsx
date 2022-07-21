@@ -31,7 +31,7 @@ const ExercisePage = (props:Exercise) => {
 
 export const getStaticPaths =async () =>{
     try {
-        const res=await axios.get(`${process.env.URL}api/exercises`)
+        const res=await axios.get(`${process.env.URL}`)
         const paths=res.data.map((exercise:Exercise)=>{
             return {
                 params: {id:exercise.id.toString()}
