@@ -51,10 +51,10 @@ export const getStaticPaths =async () =>{
             }
         })
     
-        const paths=[...array1,...array2,...array3]||[]
+        const paths=[...array1,...array2,...array3]
         return {
-            paths:paths || [],
-            fallback:true
+            paths:paths,
+            fallback:false
         }
         
     } catch (error) {

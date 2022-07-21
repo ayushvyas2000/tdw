@@ -38,7 +38,7 @@ export const getStaticPaths =async () =>{
             }
         })  
         return {
-            paths:paths || [],
+            paths:paths,    
             fallback:false
         }
         
