@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { Exercise } from '../../../utils/types'
 import ExerciseItem from '../../../components/ExerciseItem'
 import Container from '../../../components/Container'
+import { config } from '../../../utils/config'
 interface IProps{
     exercises:Exercise[],
     exerciseType:String[]
@@ -25,9 +26,9 @@ const ExercisePage = (props:IProps) => {
 
 export const getStaticPaths =async () =>{
     try {
-        const response2=await axios.get(`${process.env.URL}api/exercises/category/bodyPart`)
-        const response3=await axios.get(`${process.env.URL}api/exercises/category/target`)
-        const response4=await axios.get(`${process.env.URL}api/exercises/category/equipment`)
+        const response2=await axios.get(`${process.env.URL}bodyPartList`,config)
+        const response3=await axios.get(`${process.env.URL}targetList`,config)
+        const response4=await axios.get(`${process.env.URL}equipmentList`,config)
         const array1=response2.data.map((item:String)=>{
             return {
                 params:{
@@ -67,7 +68,7 @@ export const getStaticProps=async(context:any)=>{
     const slug=context.params.slug;
     const link=slug.join('/')
     try {
-        const res=await axios.get(`${process.env.URL}${link}`)
+        const res=await axios.get(`${process.env.URL}${link}`,config)
     
         return{
             props: {

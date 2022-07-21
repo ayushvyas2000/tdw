@@ -30,7 +30,6 @@ const ExercisePage = (props:Exercise) => {
 }   
 
 export const getStaticPaths =async () =>{
-    try {
         const res=await axios.get(`${process.env.URL}`)
         const paths=res.data.map((exercise:Exercise)=>{
             return {
@@ -42,10 +41,6 @@ export const getStaticPaths =async () =>{
             fallback:false
         }
         
-    } catch (error) {
-        console.log(error);
-        
-    }
 }
 
 export const getStaticProps=async(context:any)=>{
